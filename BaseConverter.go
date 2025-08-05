@@ -13,14 +13,13 @@ func main() {
 	fmt.Scanln(&input)
 	hex := []byte(input)
 	if len(hex) > 0 {
-		var ans = binary2base64(hex2binary(hex))
-		//slices.Reverse(ans)
+		var ans = Binary2Base64(Hex2Binary(hex))
 		fmt.Println(string(ans))
 	} else {
 		fmt.Println("input is empty")
 	}
 }
-func hex2binary(hex []byte) []bool {
+func Hex2Binary(hex []byte) []bool {
 	var ans []bool
 	for i := 0; i < len(hex); i += 2 {
 		ans = append(ans, hexBit2binary(hex[i:i+2])...)
@@ -53,7 +52,7 @@ func hexBit2binary(hexBit []byte) []bool {
 	slices.Reverse(ans)
 	return ans
 }
-func binary2base64(binary []bool) []byte {
+func Binary2Base64(binary []bool) []byte {
 	ans := []byte{}
 	for i := 0; i < len(binary); i += 6 {
 		end := i + 6
@@ -77,4 +76,26 @@ func binaryBit2base64(binary []bool) byte {
 		}
 	}
 	return base64Table[num]
+}
+func Binary2Hex(binary []bool) []byte {
+	ans := []byte{}
+	for i := 0; i < len(binary); i += 4 {
+		end := i + 4
+		if end > len(binary) {
+			end = len(binary)
+		}
+		ans = append(ans, binaryBit2hex(binary[i:end]))
+
+	}
+	return ans
+}
+func binaryBit2hex(binary []bool) byte {
+	num := 0
+	for i := 0; i < len(binary); i++ {
+		num *= 2
+		if binary[i] {
+			num += 1
+		}
+	}
+	return hexTable[num]
 }
