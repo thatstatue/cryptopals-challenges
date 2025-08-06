@@ -26,6 +26,7 @@ func main() {
 	} else {
 		fmt.Println("input is empty")
 	}
+	single()
 }
 
 func xor(b1, b2 []bool) []bool {

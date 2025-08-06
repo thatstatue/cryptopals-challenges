@@ -14,7 +14,9 @@ func main() {
 	fmt.Scanln(&input)
 	hex := []byte(input)
 	if len(hex) > 0 {
-		var ans = Binary2Base64(Hex2Binary(hex))
+		temp := Hex2Binary(hex)
+		BinaryRepresent(temp)
+		var ans = Binary2Base64(temp)
 		fmt.Println(string(ans))
 	} else {
 		fmt.Println("input is empty")
@@ -94,14 +96,18 @@ func BinaryBit2hex(binary []bool) byte {
 	return hexTable[num]
 }
 
-func BinaryRepresent(binary []bool) []int {
+func BinaryRepresent(binary []bool) {
 	ans := make([]int, len(binary))
+	fmt.Println("binary: ")
 	for i := 0; i < len(binary); i++ {
 		if binary[i] {
 			ans[i] = 1
 		} else {
 			ans[i] = 0
 		}
+		fmt.Print(ans[i])
+		if i%8 == 7 {
+			fmt.Print(" ")
+		}
 	}
-	return ans
 }
