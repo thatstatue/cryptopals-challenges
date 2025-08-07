@@ -1,31 +1,38 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
 	"strings"
 )
 
 func single() {
 	fmt.Printf("now, provide the encoded input in 3rd exercise to reveal the decryption:")
 	var input1 string
-	fmt.Scanln(&input1)
-	//fmt.Printf("input the second hex based string:")
-	for i := 1; i < 2; i++ {
+	scanner := bufio.NewScanner(os.Stdin)
+	for scanner.Scan() {
+		input1 = scanner.Text()
+		//fmt.Printf("You entered: %s\n", input1)
 
-		input2 := strings.Repeat("58", 34) // THE ANSWER FOR THIS QUESTION IS BY XORING AGAINST "58"
-		//fmt.Printf("%x\n", input2)
-		//fmt.Scanln(&input2)
-		hex1 := []byte(input1)
-		hex2 := []byte(input2)
+		//fmt.Printf("input the second hex based string:")
+		for i := 1; i < 2; i++ {
 
-		if len(hex1) > 0 && len(hex2) > 0 {
+			input2 := strings.Repeat("58", 34) // THE ANSWER FOR THIS QUESTION IS BY XORING AGAINST "58"
+			//fmt.Printf("%x\n", input2)
+			//fmt.Scanln(&input2)
+			hex1 := []byte(input1)
+			hex2 := []byte(input2)
 
-			b1 := Hex2Binary(hex1)
-			b2 := Hex2Binary(hex2)
-			var encoded = Binary2ASCII(xor(b1, b2))
-			fmt.Println(string(encoded))
-		} else {
-			fmt.Println("input is empty")
+			if len(hex1) > 0 && len(hex2) > 0 {
+
+				b1 := Hex2Binary(hex1)
+				b2 := Hex2Binary(hex2)
+				var encoded = Binary2ASCII(xor(b1, b2))
+				fmt.Println(string(encoded))
+			} else {
+				fmt.Println("input is empty")
+			}
 		}
 	}
 }
